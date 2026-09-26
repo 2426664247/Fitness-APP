@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b0e">
+<title>FitDay</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+ <div class="topbar"><div class="brand">Fit<b>Day</b></div><div class="day" id="dateLabel"></div></div>
+
+ <main id="trainingView" class="view active"></main>
+
+ <main id="plansView" class="view">
+   <section class="hero"><div class="eyebrow">WORKOUT LIBRARY</div><h1>今天练什么？</h1><p>不绑定星期几。根据恢复情况自由选一套，选完直接开始。</p></section>
+   <button class="createPlanBtn" onclick="createCustomPlan()">＋ 新建自定义计划</button>
+   <div class="planGrid" id="planGrid"></div>
+   <div class="smallprint">建议同一肌群在明显疲劳时不要连续重复训练。动作过程中如果出现关节锐痛或异常不适，应停止该动作。</div>
+ </main>
+
+ <main id="historyView" class="view">
+   <section class="hero"><div class="eyebrow">TRAINING LOG</div><h1>训练记录</h1><p>每次完成训练后会记录你选了哪一套、完成多少组。</p></section>
+   <div id="historyList"></div>
+ </main>
+</div>
+
+<nav class="bottomnav">
+ <button class="navbtn active" data-view="trainingView">训练</button>
+ <button class="navbtn" data-view="plansView">计划库</button>
+ <button class="navbtn" data-view="historyView">记录</button>
+</nav>
+
+<div class="restOverlay" id="restOverlay">
+ <div class="restCard">
+   <div class="restLabel">REST</div>
+   <div class="restTime" id="restTime">01:30</div>
+   <div class="restHint">呼吸放松。下一组继续以动作稳定为优先。</div>
+   <div class="restBtns"><button class="skip" id="skipRest">跳过休息</button><button class="plus" id="plusRest">+ 30 秒</button></div>
+ </div>
+</div>
+
+<div class="detail" id="detail">
+ <div class="detailInner">
+   <button class="close" id="closeDetail">←</button>
+   <img class="bigGif" id="detailGif" alt="">
+   <div class="code" id="detailCode"></div>
+   <h2 id="detailName"></h2>
+   <div class="en" id="detailEn"></div>
+   <div class="muscle" id="detailMuscle"></div>
+   <div class="note" id="detailNote"></div>
+   <div class="twocol">
+     <div class="mini"><h3>✅ 动作要领</h3><ul id="detailCues"></ul></div>
+     <div class="mini"><h3>⚠️ 常见错误</h3><ul id="detailAvoid"></ul></div>
+   </div>
+ </div>
+</div>
+
+<div class="modal" id="planModal">
+ <div class="sheet">
+   <div class="sheetHeader"><h2>更换今天的训练</h2><button class="xbtn" id="closePlanModal">×</button></div>
+   <div class="planGrid" id="planGridModal"></div>
+ </div>
+</div>
+
+<div class="modal" id="editorModal">
+ <div class="sheet editorSheet">
+   <div class="sheetHeader"><h2 id="editorTitle">自定义训练计划</h2><button class="xbtn" onclick="closeEditor()">×</button></div>
+   <label class="fieldLabel">计划名称</label>
+   <input id="planNameInput" class="textInput" maxlength="24" placeholder="例如：胸 + 三头强化">
+   <label class="fieldLabel">计划说明</label>
+   <input id="planDescInput" class="textInput" maxlength="80" placeholder="写一句这套训练的目标">
+   <div class="editorSectionTitle">已选动作</div>
+   <div id="draftExercises"></div>
+   <div class="editorSectionTitle">动作库</div>
+   <div class="editorHint">动作来自当前内置动作库。点一下即可加入计划；同一动作在一套计划中只添加一次。</div>
+   <div class="catalog" id="exerciseCatalog"></div>
+   <button class="savePlan" onclick="saveCustomPlan()">保存计划</button>
+ </div>
+</div>
+
+<script src="plans.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
